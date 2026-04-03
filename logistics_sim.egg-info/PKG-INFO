@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: logistics_sim
+Version: 0.1.0
+Summary: Autonomous dispatching environment for Meta OpenEnv Hackathon
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: pydantic
+Requires-Dist: openenv-core
+Requires-Dist: networkx
+Requires-Dist: openai
+Requires-Dist: uvicorn
+Requires-Dist: fastapi

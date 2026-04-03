@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "logistics_sim"
+version = "0.1.0"
+description = "Autonomous dispatching environment for Meta OpenEnv Hackathon"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "pydantic",
+    "openenv-core",
+    "networkx",
+    "openai",
+    "uvicorn",
+    "fastapi"
+]
+
+[project.scripts]
+# This tells the validator how to start your environment
+server = "server.app:main"
+
+
+[tool.setuptools]
+packages = ["server"]
+py-modules = ["models", "client"] # This tells Python to include these specific files
+
+[tool.uv]
+managed = true

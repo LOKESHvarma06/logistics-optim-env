@@ -1,0 +1,10 @@
+name: "LogiRoute-Pro"
+version: "1.0.0"
+entry_point: "server.environment:LogisticsEnvironment"
+tasks:
+  - id: "easy_delivery"
+    difficulty: "easy"
+  - id: "traffic_bypass"
+    difficulty: "medium"
+  - id: "fuel_efficiency"
+    difficulty: "hard"
