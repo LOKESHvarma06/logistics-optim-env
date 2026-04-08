@@ -1,15 +1,26 @@
-import os
 import uvicorn
 from fastapi import FastAPI
-from openenv_core.api import create_app
-from env import LogisticsEnv
 
-# 1. Initialize your custom logistics environment
+# 1. Universal Import: Fixes the ModuleNotFoundError
+try:
+    from openenv.core.api import create_app
+except (ImportError, ModuleNotFoundError):
+    from openenv_core.api import create_app
+
+from env import LogisticsEnv
+from models import Action, Observation
+
+# 2. Define the environment
 env = LogisticsEnv()
 
-# 2. Use the Meta OpenEnv 'create_app' helper to turn it into a web API
-# This is what the Meta judges' script connects to!
-app = create_app(env)
+# 3. Use the create_app factory
+# Note: Newer versions often require Action and Observation models as arguments
+app = create_app(
+    env, 
+    Action, 
+    Observation, 
+    env_name="logistics-optim"
+)
 
 if __name__ == "__main__":
     # Hugging Face and Meta expect port 7860
