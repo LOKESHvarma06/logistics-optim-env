@@ -1,7 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
-# 1. Universal Import: Fixes the ModuleNotFoundError
+# 1. Handle the library name change
 try:
     from openenv.core.api import create_app
 except (ImportError, ModuleNotFoundError):
@@ -10,11 +11,10 @@ except (ImportError, ModuleNotFoundError):
 from env import LogisticsEnv
 from models import Action, Observation
 
-# 2. Define the environment
+# 2. Create the environment
 env = LogisticsEnv()
 
-# 3. Use the create_app factory
-# Note: Newer versions often require Action and Observation models as arguments
+# 3. Create the FastAPI app
 app = create_app(
     env, 
     Action, 
@@ -22,6 +22,15 @@ app = create_app(
     env_name="logistics-optim"
 )
 
+# 🌟 THE FIX: Add a root route so the validator doesn't get a 404
+@app.get("/")
+async def root():
+    return JSONResponse(content={
+        "status": "online",
+        "message": "Logistics Optimization Environment is Ready",
+        "version": "1.0"
+    })
+
 if __name__ == "__main__":
-    # Hugging Face and Meta expect port 7860
+    # Ensure port 7860 is used for Hugging Face
     uvicorn.run(app, host="0.0.0.0", port=7860)
